@@ -1,3 +1,11 @@
 <resources>
+    <!-- nom de l'application -->
     <string name="app_name">TaskManager</string>
+
+    <!-- activiy_main -->
+    <!-- edittexte -->
+    <string name="ajout_titre">Titre de la tache</string>
+    <!-- bouton -->
+    <string name="bouton_ajouter">Ajouter</string>
+
 </resources>

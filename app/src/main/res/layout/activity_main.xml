@@ -49,7 +49,15 @@
             android:layout_height="wrap_content"
             android:text="@string/bouton_ajouter" />
 
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cliquer_item"
+            android:textSize="20sp" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" />

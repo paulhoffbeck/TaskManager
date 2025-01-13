@@ -12,10 +12,11 @@
     <!-- edit texte -->
     <string name="ajout_description">Description de la tache</string>
     <!-- texte view -->
-    <string name="titre">Titre</string>
     <!-- bouton modifier -->
     <string name="bouton_modifier">Modifier</string>
     <!-- bouton supprimer -->
     <string name="bouton_supprimer">Supprimer</string>
+    <string name="titre">Task Manager</string>
+    <string name="titre_tache_mainactivity">Titre de la tache à ajouter</string>
 
 </resources>

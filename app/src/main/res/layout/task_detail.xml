@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="383dp"
-        android:layout_height="695dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,21 +22,19 @@
             android:textSize="40sp"
             android:textStyle="bold" />
 
-        <Space
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="wrap_content"
+            android:text="@string/ajout_description"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editTextText2"
             android:layout_width="match_parent"
-            android:layout_height="544dp"
+            android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="@string/ajout_description" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:inputType="text" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         TaskDataBase basedonnee = new TaskDataBase(this);
         Task ta = new Task("Test","Ceci est un test");
         basedonnee.addTask(ta);
+        Task ti = new Task(1,"ReTest","ceci est encore un test");
+        basedonnee.updateTask(ti);
+        basedonnee.removeTask(ti);
         liste = basedonnee.affiche();
         toRecycler(liste);
     }

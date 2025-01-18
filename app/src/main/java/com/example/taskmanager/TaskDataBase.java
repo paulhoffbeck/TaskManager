@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TaskDataBase extends SQLiteOpenHelper {
     private static final String nom = "TaskDataBase.db";
     private static final int version = 1;
-    private Context context;
+    private Context context; //cette variable est présente pour d'éventuels Toast;
     public TaskDataBase(Context context){
         super(context,nom, null, version);
         this.context = context;
@@ -46,14 +46,27 @@ public class TaskDataBase extends SQLiteOpenHelper {
         return liste;
 
     }
-
     public void addTask(Task tache){
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues tachedb = new ContentValues();
             tachedb.put("name", tache.nom);
             tachedb.put("description", tache.description);
-            long result = db.insert("my_table", null, tachedb);
+            db.insert("my_table", null, tachedb);
             db.close();
+    }
+    public void updateTask(Task tache){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues tachedb = new ContentValues();
+        tachedb.put("name", tache.nom);
+        tachedb.put("description", tache.description);
+        db.update("my_table",tachedb,"id = ?",new String[]{String.valueOf(tache.id)});
+        db.close();
+    }
+
+    public void removeTask(Task tache){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("my_table", "id = ?",new String[]{String.valueOf(tache.id)});
+        db.close();
     }
 
 }

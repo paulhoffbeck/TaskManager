@@ -21,7 +21,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
 public void affiche(Task tache){
     this.tache=tache;
-    id.setText(this.tache.id);
+    id.setText(String.valueOf(this.tache.id));
     nom.setText(this.tache.nom);
     descriprion.setText(this.tache.description);
 

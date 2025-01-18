@@ -28,12 +28,20 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        TaskDataBase basedonnee = new TaskDataBase(this);
+        Task ta = new Task("Test","Ceci est un test");
+        basedonnee.addTask(ta);
+        Task ti = new Task(1,"ReTest","ceci est encore un test");
+        basedonnee.updateTask(ti);
+        basedonnee.removeTask(ti);
+        liste = basedonnee.affiche();
+        toRecycler(liste);
+    }
+
+    void toRecycler(ArrayList<Task> liste){
         r1 =(RecyclerView) findViewById(R.id.recycl);
         r1.setLayoutManager(new LinearLayoutManager(this));
-
-         liste = new ArrayList<Task>();
-         liste.add(new Task("1","Tester","Faire un test"));
-         RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste);
-         r1.setAdapter(aptateur);
+        RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste);
+        r1.setAdapter(aptateur);
     }
 }

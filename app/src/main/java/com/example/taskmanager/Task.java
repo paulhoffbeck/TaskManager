@@ -1,5 +1,7 @@
 package com.example.taskmanager;
 
+import androidx.annotation.NonNull;
+
 public class Task {
     String  nom, description;
     int id;
@@ -21,7 +23,12 @@ public class Task {
         this.description = "";
     }
 
+    @NonNull
     public String toString(){
-        return id+" "+nom+" "+description;
+        return id+","+nom+","+description;
+    }
+
+    public String getNom() {
+        return nom;
     }
 }

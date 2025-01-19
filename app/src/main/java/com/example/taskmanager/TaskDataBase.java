@@ -9,6 +9,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class TaskDataBase extends SQLiteOpenHelper {
+
+    private static TaskDataBase instance;
     private static final String nom = "TaskDataBase.db";
     private static final int version = 1;
     private Context context; //cette variable est présente pour d'éventuels Toast;
@@ -17,6 +19,13 @@ public class TaskDataBase extends SQLiteOpenHelper {
         this.context = context;
 
     }
+    public static synchronized TaskDataBase getInstance(Context context){
+        if (instance==null){
+            instance = new TaskDataBase(context.getApplicationContext());
+        }
+        return instance;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE my_table (id INTEGER PRIMARY KEY, name TEXT, description TEXT)");

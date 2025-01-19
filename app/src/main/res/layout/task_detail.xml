@@ -76,5 +76,11 @@
                 android:text="@string/bouton_supprimer" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/retour_main" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

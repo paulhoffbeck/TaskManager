@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     ActivityResultLauncher<Intent> activityResultLauncher;
     Button btn;
     EditText e1;
@@ -43,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
-                        Toast.makeText(this, "Tache modifiée", Toast.LENGTH_SHORT).show();
+                        liste = basedonnee.affiche();
+                        toRecycler(liste);
+                        e1.setText("");
                     }
                 }
         );
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         e1 =(EditText)findViewById(R.id.editTextText);
         btn.setOnClickListener(this);
 
-        basedonnee = new TaskDataBase(this);
+        basedonnee = TaskDataBase.getInstance(this);
         liste = basedonnee.affiche();
         toRecycler(liste);
     }

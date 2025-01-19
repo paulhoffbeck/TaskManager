@@ -50,7 +50,6 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         i2.putExtra("nom",stringnom);
         i2.putExtra("description",stringdesc);
         activityResultLauncher.launch(i2);
-
     }
 }
 

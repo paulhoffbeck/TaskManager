@@ -9,4 +9,5 @@
     <string name="titre_tache_mainactivity">Title of the task :</string>
     <string name="change_nom">Change name :</string>
     <string name="cliquer_item">Click on an item to see more details :</string>
+    <string name="retour_main">Back to task menu</string>
 </resources>

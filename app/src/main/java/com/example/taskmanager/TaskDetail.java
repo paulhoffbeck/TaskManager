@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,10 +15,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TaskDetail extends AppCompatActivity implements View.OnClickListener {
     EditText inputnom, inputdesc;
+    CalendarView inputdate;
     Task tache;
     Button modif, enleve, back;
+    String dateselectionnee;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +40,12 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         });
         inputnom = (EditText)findViewById(R.id.editTextText3);
         inputdesc = (EditText)findViewById(R.id.editTextText2);
+        inputdate = (CalendarView) findViewById(R.id.calendarView);
+        inputdate.setOnDateChangeListener(((view, year, month, dayOfMonth) -> {
+            month++;
+            dateselectionnee = dayOfMonth+"/"+month+"/"+year;
+        }));
+
         modif = (Button)findViewById(R.id.button2) ;
         enleve = (Button)findViewById(R.id.button3) ;
         back =(Button)findViewById(R.id.button4);
@@ -44,16 +59,25 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         int id = i.getIntExtra("id",0);
         String nom = i.getStringExtra("nom");
         String desc = i.getStringExtra("description");
-        tache = new Task(id,nom,desc);
+        String date = i.getStringExtra("date");
+        tache = new Task(id,nom,desc,date);
 
         inputnom.setText(nom);
         inputdesc.setText(desc);
+        try {
+            inputdate.setDate(dateLong(date));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
     public void onClick(View v) {
         tache.nom = String.valueOf(inputnom.getText());
         tache.description = String.valueOf(inputdesc.getText());
+        tache.date = dateselectionnee;
         int idbtn = v.getId();
         TaskDataBase basedonnee = TaskDataBase.getInstance(this);
         if (idbtn == R.id.button2){
@@ -64,15 +88,24 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
             basedonnee.removeTask(tache);
             Toast.makeText(this, "Tache retirée", Toast.LENGTH_SHORT).show();
             Intent i3 = new Intent();
+            i3.putExtra("Test",true);
             setResult(AppCompatActivity.RESULT_OK,i3);
             finish();
         }
         else if (idbtn == R.id.button4){
             Intent i3 = new Intent();
             setResult(AppCompatActivity.RESULT_OK,i3);
+            i3.putExtra("Test",true);
             finish();
         }
 
 
+    }
+
+
+    long dateLong(String date) throws ParseException {
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        Date longdate = sd.parse(date);
+        return longdate.getTime();
     }
 }

@@ -28,7 +28,7 @@ public class TaskDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE my_table (id INTEGER PRIMARY KEY, name TEXT, description TEXT)");
+        db.execSQL("CREATE TABLE my_table (id INTEGER PRIMARY KEY, name TEXT, description TEXT, date TEXT)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -39,14 +39,15 @@ public class TaskDataBase extends SQLiteOpenHelper {
     public ArrayList<Task> affiche() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Task> liste = new ArrayList<Task>();
-        Cursor recherche = db.rawQuery("SELECT id,name,description FROM  my_table",null);
+        Cursor recherche = db.rawQuery("SELECT id,name,description,date FROM  my_table",null);
 
         if (recherche != null){
             while(recherche.moveToNext()){
                 int id = recherche.getInt(recherche.getColumnIndexOrThrow("id"));
                 String nom = recherche.getString(recherche.getColumnIndexOrThrow("name"));
+               String date = recherche.getString(recherche.getColumnIndexOrThrow("date"));
                 String description = recherche.getString(recherche.getColumnIndexOrThrow("description"));
-                Task tache = new Task(id,nom,description);
+                Task tache = new Task(id,nom,description,date);
                 liste.add(tache);
             }
             recherche.close();
@@ -60,6 +61,7 @@ public class TaskDataBase extends SQLiteOpenHelper {
             ContentValues tachedb = new ContentValues();
             tachedb.put("name", tache.nom);
             tachedb.put("description", tache.description);
+            tachedb.put("date", tache.date);
             db.insert("my_table", null, tachedb);
             db.close();
     }
@@ -68,6 +70,7 @@ public class TaskDataBase extends SQLiteOpenHelper {
         ContentValues tachedb = new ContentValues();
         tachedb.put("name", tache.nom);
         tachedb.put("description", tache.description);
+        tachedb.put("date", tache.date);
         db.update("my_table",tachedb,"id = ?",new String[]{String.valueOf(tache.id)});
         db.close();
     }

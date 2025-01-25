@@ -59,10 +59,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void toRecycler(ArrayList<Task> liste){
-        r1 =(RecyclerView) findViewById(R.id.recycl);
-        r1.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,activityResultLauncher);
-        r1.setAdapter(aptateur);
+        if(liste.size()==0){
+            liste.add(new Task(0,"Aucune tache n'a été ajoutée","Ces lignes sont ajoutés quand il n'y a aucune tache dans la liste","0/0/0"));
+            liste.add(new Task(5,"Finir la SAE","Voici un exemple de tâche","0/0/0/"));
+            r1 =(RecyclerView) findViewById(R.id.recycl);
+            r1.setLayoutManager(new LinearLayoutManager(this));
+            RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,activityResultLauncher);
+            r1.setAdapter(aptateur);
+        }
+        else{
+            r1 =(RecyclerView) findViewById(R.id.recycl);
+            r1.setLayoutManager(new LinearLayoutManager(this));
+            RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,activityResultLauncher);
+            r1.setAdapter(aptateur);
+        }
+
+
     }
 
     @Override
@@ -74,8 +86,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String nom = String.valueOf(e1.getText());
             Task tache = new Task(nom);
             basedonnee.addTask(tache);
-            liste = basedonnee.affiche();
+            liste =basedonnee.affiche();
             toRecycler(liste);
+            Task tache2 = liste.get(liste.size()-1);
+            Intent i2 = new Intent(this,TaskDetail.class);
+            i2.putExtra("id",tache2.id);
+            i2.putExtra("nom",tache2.nom);
+            i2.putExtra("description",tache2.description);
+            i2.putExtra("date",tache2.date);
+            activityResultLauncher.launch(i2);
         }
 
 

@@ -15,9 +15,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class TaskDetail extends AppCompatActivity implements View.OnClickListener {
-    EditText inputnom, inputdesc;
+    EditText inputnom, inputdesc,inputdate;
     Task tache;
     Button modif, enleve, back;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         });
         inputnom = (EditText)findViewById(R.id.editTextText3);
         inputdesc = (EditText)findViewById(R.id.editTextText2);
+        inputdate = (EditText) findViewById(R.id.editTextDate);
+
         modif = (Button)findViewById(R.id.button2) ;
         enleve = (Button)findViewById(R.id.button3) ;
         back =(Button)findViewById(R.id.button4);
@@ -44,16 +47,19 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         int id = i.getIntExtra("id",0);
         String nom = i.getStringExtra("nom");
         String desc = i.getStringExtra("description");
-        tache = new Task(id,nom,desc);
+        String date = i.getStringExtra("date");
+        tache = new Task(id,nom,desc,date);
 
         inputnom.setText(nom);
         inputdesc.setText(desc);
+        inputdate.setText(date);
     }
 
     @Override
     public void onClick(View v) {
         tache.nom = String.valueOf(inputnom.getText());
         tache.description = String.valueOf(inputdesc.getText());
+        tache.date = String.valueOf(inputdate.getText());
         int idbtn = v.getId();
         TaskDataBase basedonnee = TaskDataBase.getInstance(this);
         if (idbtn == R.id.button2){
@@ -64,12 +70,14 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
             basedonnee.removeTask(tache);
             Toast.makeText(this, "Tache retirée", Toast.LENGTH_SHORT).show();
             Intent i3 = new Intent();
+            i3.putExtra("Test",true);
             setResult(AppCompatActivity.RESULT_OK,i3);
             finish();
         }
         else if (idbtn == R.id.button4){
             Intent i3 = new Intent();
             setResult(AppCompatActivity.RESULT_OK,i3);
+            i3.putExtra("Test",true);
             finish();
         }
 

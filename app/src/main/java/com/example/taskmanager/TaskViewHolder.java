@@ -18,12 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ActivityResultLauncher<Intent> activityResultLauncher;
     Context context;
-    TextView id, nom, descriprion;
+    TextView id, nom, descriprion,date;
     Task tache;
 
     public TaskViewHolder(@NonNull View itemView, ActivityResultLauncher<Intent> activityResultLauncher) {
         super(itemView);
         this.activityResultLauncher = activityResultLauncher;
+        date = (TextView)itemView.findViewById(R.id.date_viewholder);
         id = (TextView) itemView.findViewById(R.id.id);
         nom = (TextView) itemView.findViewById(R.id.nom);
         descriprion = (TextView) itemView.findViewById(R.id.desc);
@@ -36,8 +37,10 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         id.setText(String.valueOf(this.tache.id));
         nom.setText(this.tache.nom);
         descriprion.setText(this.tache.description);
-
+        date.setText(this.tache.date);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -45,10 +48,12 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         int intid = Integer.parseInt(id.getText().toString());
         String stringnom = String.valueOf(nom.getText().toString());
         String stringdesc = String.valueOf(descriprion.getText().toString());
+        String stringdate = String.valueOf(date.getText().toString());
         Intent i2 = new Intent(context,TaskDetail.class);
         i2.putExtra("id",intid);
         i2.putExtra("nom",stringnom);
         i2.putExtra("description",stringdesc);
+        i2.putExtra("date",stringdate);
         activityResultLauncher.launch(i2);
     }
 }

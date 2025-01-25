@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityResultLauncher<Intent> activityResultLauncher;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         liste = basedonnee.affiche();
+                        Collections.sort(liste);
                         toRecycler(liste);
                         e1.setText("");
                     }

@@ -41,6 +41,7 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         inputnom = (EditText)findViewById(R.id.editTextText3);
         inputdesc = (EditText)findViewById(R.id.editTextText2);
         inputdate = (CalendarView) findViewById(R.id.calendarView);
+        dateselectionnee = "0/0/0";
         inputdate.setOnDateChangeListener(((view, year, month, dayOfMonth) -> {
             month++;
             dateselectionnee = dayOfMonth+"/"+month+"/"+year;

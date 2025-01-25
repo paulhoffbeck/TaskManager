@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,10 +15,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TaskDetail extends AppCompatActivity implements View.OnClickListener {
-    EditText inputnom, inputdesc,inputdate;
+    EditText inputnom, inputdesc;
+    CalendarView inputdate;
     Task tache;
     Button modif, enleve, back;
+    String dateselectionnee;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -32,7 +40,11 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         });
         inputnom = (EditText)findViewById(R.id.editTextText3);
         inputdesc = (EditText)findViewById(R.id.editTextText2);
-        inputdate = (EditText) findViewById(R.id.editTextDate);
+        inputdate = (CalendarView) findViewById(R.id.calendarView);
+        inputdate.setOnDateChangeListener(((view, year, month, dayOfMonth) -> {
+            month++;
+            dateselectionnee = dayOfMonth+"/"+month+"/"+year;
+        }));
 
         modif = (Button)findViewById(R.id.button2) ;
         enleve = (Button)findViewById(R.id.button3) ;
@@ -52,14 +64,20 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
 
         inputnom.setText(nom);
         inputdesc.setText(desc);
-        inputdate.setText(date);
+        try {
+            inputdate.setDate(dateLong(date));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
     public void onClick(View v) {
         tache.nom = String.valueOf(inputnom.getText());
         tache.description = String.valueOf(inputdesc.getText());
-        tache.date = String.valueOf(inputdate.getText());
+        tache.date = dateselectionnee;
         int idbtn = v.getId();
         TaskDataBase basedonnee = TaskDataBase.getInstance(this);
         if (idbtn == R.id.button2){
@@ -82,5 +100,12 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         }
 
 
+    }
+
+
+    long dateLong(String date) throws ParseException {
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        Date longdate = sd.parse(date);
+        return longdate.getTime();
     }
 }

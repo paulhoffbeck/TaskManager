@@ -43,7 +43,8 @@
             android:layout_height="56dp"
             android:ems="10"
             android:gravity="center"
-            android:inputType="text" />
+            android:inputType="text"
+            />
 
         <Button
             android:id="@+id/button"
@@ -58,6 +59,15 @@
             android:layout_height="wrap_content"
             android:text="@string/cliquer_item"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/info3"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycl"

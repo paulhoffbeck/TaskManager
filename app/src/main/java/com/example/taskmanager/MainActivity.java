@@ -1,30 +1,25 @@
 package com.example.taskmanager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    ActivityResultLauncher<Intent> activityResultLauncher;
+    Activity acti;
     Button btn;
     EditText e1;
     RecyclerView r1;
@@ -40,18 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        liste = basedonnee.affiche();
-                        Collections.sort(liste);
-                        toRecycler(liste);
-                        e1.setText("");
-                    }
-                }
-        );
-
+        acti = this;
         btn = (Button)findViewById(R.id.button);
         e1 =(EditText)findViewById(R.id.editTextText);
         btn.setOnClickListener(this);
@@ -60,30 +44,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         liste = basedonnee.affiche();
         toRecycler(liste);
     }
-
     void toRecycler(ArrayList<Task> liste){
         if(liste.size()==0){
-            liste.add(new Task(0,"Aucune tache n'a été ajoutée","Ces lignes sont ajoutés quand il n'y a aucune tache dans la liste","0/0/0"));
-            liste.add(new Task(5,"Finir la SAE","Voici un exemple de tâche","0/0/0/"));
+            liste.add(new Task(0,getString(R.string.default1),getString(R.string.default2),"01/09/2027"));
+            liste.add(new Task(5,getString(R.string.default21),getString(R.string.default22),"05/11/1605"));
+            liste.add(new Task(6,"Information",getString(R.string.alert1),"0/0/0"));
             r1 =(RecyclerView) findViewById(R.id.recycl);
             r1.setLayoutManager(new LinearLayoutManager(this));
-            RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,activityResultLauncher);
+            RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,acti);
             r1.setAdapter(aptateur);
         }
         else{
             r1 =(RecyclerView) findViewById(R.id.recycl);
             r1.setLayoutManager(new LinearLayoutManager(this));
-            RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,activityResultLauncher);
+            RecyclerView.Adapter<TaskViewHolder> aptateur = new TaskAdapter(liste,acti);
             r1.setAdapter(aptateur);
         }
-
-
     }
-
     @Override
     public void onClick(View v) {
         if(e1.length()==0){
-            Toast.makeText(this, "Veillez remplir le nom", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.erreur1), Toast.LENGTH_SHORT).show();
         }
         else{
             String nom = String.valueOf(e1.getText());
@@ -97,9 +78,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             i2.putExtra("nom",tache2.nom);
             i2.putExtra("description",tache2.description);
             i2.putExtra("date",tache2.date);
-            activityResultLauncher.launch(i2);
+            startActivityForResult(i2,5);
         }
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode ==5){
+            liste = basedonnee.affiche();
+            Collections.sort(liste);
+            toRecycler(liste);
+            e1.setText("");
+        }
     }
 }

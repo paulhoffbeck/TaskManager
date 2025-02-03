@@ -3,10 +3,13 @@ package com.example.taskmanager;
 import static android.app.ProgressDialog.show;
 
 import static androidx.activity.result.ActivityResultCallerKt.registerForActivityResult;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,16 +23,18 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     Context context;
     TextView id, nom, descriprion,date;
     Task tache;
+    Activity acti;
 
-    public TaskViewHolder(@NonNull View itemView, ActivityResultLauncher<Intent> activityResultLauncher) {
+    public TaskViewHolder(@NonNull View itemView, Activity acti) {
         super(itemView);
-        this.activityResultLauncher = activityResultLauncher;
+        this.acti = acti;
         date = (TextView)itemView.findViewById(R.id.date_viewholder);
         id = (TextView) itemView.findViewById(R.id.id);
         nom = (TextView) itemView.findViewById(R.id.nom);
         descriprion = (TextView) itemView.findViewById(R.id.desc);
         itemView.setOnClickListener(this);
         context = itemView.getContext();
+
     }
 
     public void affiche(Task tache) {
@@ -38,6 +43,10 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         nom.setText(this.tache.nom);
         descriprion.setText(this.tache.description);
         date.setText(this.tache.date);
+        if (String.valueOf(date.getText()).equals("0/0/0")){
+            date.setBackgroundColor(Color.RED);
+            date.setTextColor(Color.WHITE);
+        }
     }
 
 
@@ -54,7 +63,8 @@ public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         i2.putExtra("nom",stringnom);
         i2.putExtra("description",stringdesc);
         i2.putExtra("date",stringdate);
-        activityResultLauncher.launch(i2);
+        acti.startActivityForResult(i2,5);
+        ;
     }
 }
 

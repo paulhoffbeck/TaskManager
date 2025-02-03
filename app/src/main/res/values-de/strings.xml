@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ajout_titre">Aufgabentitel</string>
+    <string name="bouton_ajouter">hinzufügen</string>
+    <string name="ajout_description">Aufgabenbeschreibung</string>
+    <string name="bouton_modifier">Zu ändern</string>
+    <string name="bouton_supprimer">LÖSCHEN</string>
+    <string name="titre_tache_mainactivity">Aufgabentitel</string>
+    <string name="change_nom">Namen ändern</string>
+    <string name="cliquer_item">Klicken Sie auf ein Element, um Details anzuzeigen</string>
+    <string name="retour_main">Rückkehr zum Aufgabenmenü</string>
+    <string name="date_fin">Frist (T/M/J):</string>
+    <string name="id">Reihenfolge der Zugabe :</string>
+    <string name="alert1">Unveränderte Termine werden rot hervorgehoben</string>
+    <string name="default1">Es wurden keine Flecken hinzugefügt</string>
+    <string name="default2">Diese Zeilen werden hinzugefügt, wenn in der Liste keine Spots vorhanden sind</string>
+    <string name="default21">Hier ist eine Beispielaufgabe</string>
+    <string name="default22">Beenden Sie die SAE</string>
+    <string name="erreur1">Bitte geben Sie den Namen ein</string>
+    <string name="erreur2">Der Name darf nicht leer sein</string>
+    <string name="info1">Modifizierter Fleck</string>
+    <string name="info2">Fleck entfernt</string>
+    <string name="info3">Die Aufgaben sind chronologisch sortiert</string>
+</resources>

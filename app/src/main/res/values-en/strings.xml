@@ -5,10 +5,20 @@
     <string name="ajout_description">Task Description :</string>
     <string name="bouton_modifier">Modify</string>
     <string name="bouton_supprimer">Delete</string>
-    <string name="titre">Task Manager</string>
     <string name="titre_tache_mainactivity">Title of the task :</string>
     <string name="change_nom">Change name :</string>
     <string name="cliquer_item">Click on an item to see more details :</string>
     <string name="retour_main">Back to task menu</string>
     <string name="date_fin">Limite date (d/m/y) :</string>
+    <string name="id">Add order :</string>
+    <string name="alert1">Unchanged dates are highlighted in red</string>
+    <string name="default1">No tasks have been added</string>
+    <string name="default2">These lines are added when there are no tasks in the list</string>
+    <string name="default21">Here is an example of a tas</string>
+    <string name="default22">Finish the SAE;</string>
+    <string name="erreur1">Please fill in the name</string>
+    <string name="erreur2">The name cannot be empty</string>
+    <string name="info1">Task modified</string>
+    <string name="info2">Task removed</string>
+    <string name="info3">The spots are sorted chronologically.</string>
 </resources>

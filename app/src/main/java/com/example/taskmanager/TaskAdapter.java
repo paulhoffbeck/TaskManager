@@ -1,35 +1,33 @@
 package com.example.taskmanager;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class TaskAdapter extends  RecyclerView.Adapter<TaskViewHolder>{
-    ActivityResultLauncher<Intent> activityResultLauncher;
+    Activity acti;
     ArrayList<Task> liste;
 
-    TaskAdapter(ArrayList<Task> liste,ActivityResultLauncher<Intent> activityResultLauncher){
+    TaskAdapter(ArrayList<Task> liste,Activity acti){
         if (liste != null){
             this.liste=liste;
         }
         else{
             this.liste=new ArrayList<Task>();
         }
-        this.activityResultLauncher = activityResultLauncher;
+        this.acti = acti;
     }
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.task, parent, false);
-        return new TaskViewHolder(view,activityResultLauncher);
+        return new TaskViewHolder(view,acti);
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,6 @@ public class TaskDataBase extends SQLiteOpenHelper {
     public TaskDataBase(Context context){
         super(context,nom, null, version);
         this.context = context;
-
     }
     public static synchronized TaskDataBase getInstance(Context context){
         if (instance==null){

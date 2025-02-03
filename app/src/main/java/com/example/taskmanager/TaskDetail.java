@@ -42,10 +42,6 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         inputdesc = (EditText)findViewById(R.id.editTextText2);
         inputdate = (CalendarView) findViewById(R.id.calendarView);
         dateselectionnee = "0/0/0";
-        inputdate.setOnDateChangeListener(((view, year, month, dayOfMonth) -> {
-            month++;
-            dateselectionnee = dayOfMonth+"/"+month+"/"+year;
-        }));
 
         modif = (Button)findViewById(R.id.button2) ;
         enleve = (Button)findViewById(R.id.button3) ;
@@ -54,15 +50,13 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         enleve.setOnClickListener(this);
         back.setOnClickListener(this);
 
-
-
         Intent i = getIntent();
         int id = i.getIntExtra("id",0);
         String nom = i.getStringExtra("nom");
         String desc = i.getStringExtra("description");
         String date = i.getStringExtra("date");
+        dateselectionnee = date;
         tache = new Task(id,nom,desc,date);
-
         inputnom.setText(nom);
         inputdesc.setText(desc);
         try {
@@ -71,39 +65,41 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
             throw new RuntimeException(e);
         }
 
-
+        inputdate.setOnDateChangeListener(((view, year, month, dayOfMonth) -> {
+            month++;
+            dateselectionnee = dayOfMonth+"/"+month+"/"+year;
+        }));
     }
 
     @Override
     public void onClick(View v) {
-        tache.nom = String.valueOf(inputnom.getText());
-        tache.description = String.valueOf(inputdesc.getText());
-        tache.date = dateselectionnee;
-        int idbtn = v.getId();
-        TaskDataBase basedonnee = TaskDataBase.getInstance(this);
-        if (idbtn == R.id.button2){
-            basedonnee.updateTask(tache);
-            Toast.makeText(this, "Tache modifiée", Toast.LENGTH_SHORT).show();
-
-        } else if (idbtn == R.id.button3) {
-            basedonnee.removeTask(tache);
-            Toast.makeText(this, "Tache retirée", Toast.LENGTH_SHORT).show();
-            Intent i3 = new Intent();
-            i3.putExtra("Test",true);
-            setResult(AppCompatActivity.RESULT_OK,i3);
-            finish();
+        if(String.valueOf(inputnom.getText()).equals("")){
+            Toast.makeText(this, getString(R.string.erreur2), Toast.LENGTH_SHORT).show();
         }
-        else if (idbtn == R.id.button4){
-            Intent i3 = new Intent();
-            setResult(AppCompatActivity.RESULT_OK,i3);
-            i3.putExtra("Test",true);
-            finish();
+        else{
+            tache.nom = String.valueOf(inputnom.getText());
+            tache.description = String.valueOf(inputdesc.getText());
+            tache.date = dateselectionnee;
+            int idbtn = v.getId();
+            TaskDataBase basedonnee = TaskDataBase.getInstance(this);
+            if (idbtn == R.id.button2){
+                basedonnee.updateTask(tache);
+                Toast.makeText(this, getString(R.string.info1), Toast.LENGTH_SHORT).show();
+
+            } else if (idbtn == R.id.button3) {
+                basedonnee.removeTask(tache);
+                Toast.makeText(this, getString(R.string.info2), Toast.LENGTH_SHORT).show();
+                Intent i3 = new Intent();
+                setResult(AppCompatActivity.RESULT_OK,i3);
+                finish();
+            }
+            else if (idbtn == R.id.button4){
+                Intent i3 = new Intent();
+                setResult(AppCompatActivity.RESULT_OK,i3);
+                finish();
+            }
         }
-
-
     }
-
-
     long dateLong(String date) throws ParseException {
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         Date longdate = sd.parse(date);

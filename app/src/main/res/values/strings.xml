@@ -16,7 +16,7 @@
     <string name="bouton_modifier">Modifier</string>
     <!-- bouton supprimer -->
     <string name="bouton_supprimer">Supprimer</string>
-    <string name="titre">Task Manager</string>
+    <string name="titre" translatable="false">Task Manager</string>
     <string name="titre_tache_mainactivity">Titre de la tache à ajouter :</string>
     <string name="task_detail" translatable="false">Task Detail</string>
     <string name="change_nom">Changer le nom :</string>
@@ -28,4 +28,15 @@
     <string name="first_fragment_label" translatable="false">First Fragment</string>
     <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="date_fin">Date limite (j/m/a) :</string>
+    <string name="id">Ordre d\'ajout :</string>
+    <string name="alert1">Les dates non modifiées sont surlignées en rouge</string>
+    <string name="default1">Aucune tache n\'a été ajoutée</string>
+    <string name="default2">Ces lignes sont ajoutés quand il n\'y a aucune tache dans la liste</string>
+    <string name="default21">Voici un exemple de tâche</string>
+    <string name="default22">"Finir la SAE "</string>
+    <string name="erreur1">Veillez remplir le nom</string>
+    <string name="erreur2">Le nom ne peut pas être vide</string>
+    <string name="info1">Tache modifiée</string>
+    <string name="info2">Tache retirée</string>
+    <string name="info3">Les taches sont triées de façon chronologiques</string>
 </resources>
